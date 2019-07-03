@@ -57,19 +57,21 @@ public class Cromossomo {
 		return binary;
 	}
 	
-	public static Cromossomo crossingOver(Cromossomo c1, Cromossomo c2){
-		int aux1 = c2.getGenotipo()[0];
-		int aux2 = c2.getGenotipo()[1];
-		int aux3 = c2.getGenotipo()[6];
-		int []gen = c1.getGenotipo();
+	public static int[] crossingOver(int[] c1, int[] c2){
 		
-		gen[0] = aux1;
-		gen[1] = aux2;
-		gen[6] = aux3;
-		c1.setGenotipo(gen);
-
+		int[] filho = new int[c1.length];
 		
-		return c1;
+		for(int i = 0 ; i < (c1.length)/2 ; i++) {
+			filho[i] = c1[i];
+		}
+		for(int j = (c2.length/2) + 1 ; j < c2.length ; j++) {
+			filho[j] = c2[j];
+		}
+		
+		
+		
+		
+		return filho;
 	}
 	
 	// Retorna o índice dos dois elementos de maior importancia

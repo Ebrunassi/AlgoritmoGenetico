@@ -25,7 +25,7 @@ public class Main {
 		// Preenche o cromossomo
 		for(int i = 0 ; i < cromossomo.length ; i++) {
 			cromossomo[i] = random.nextInt(2);
-			if(cromossomo[i] == 1)
+			if(cromossomo[i] == 1 && populacao.get(i).getVolume() + volumeAtual < volumeMochila)
 				volumeAtual = populacao.get(i).getVolume() + volumeAtual;
 			
 			if(volumeAtual > volumeMochila) {
@@ -34,11 +34,11 @@ public class Main {
 				break;
 			}
 			
-			System.out.println(cromossomo[i]);
+//			System.out.println(cromossomo[i]);
 		}
 		System.out.println("Volume mochila : " + volumeMochila);
 		System.out.println("Volume atual : " + volumeAtual);
-		return null;
+		return cromossomo;
 	}
 	
 	
@@ -77,15 +77,7 @@ public class Main {
 		int []cPai = geraCromossomoAleatorio(populacao,volumeMochila);
 		int []cMae = geraCromossomoAleatorio(populacao,volumeMochila);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		int []filho = Cromossomo.crossingOver(cPai,cMae);
 		
 		
 
