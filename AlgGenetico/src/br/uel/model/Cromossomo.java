@@ -3,7 +3,7 @@ package br.uel.model;
 import java.util.LinkedList;
 
 public class Cromossomo {
-	private int[] genotipo = new int[5];
+	private int[] genotipo = new int[7];
 	private int fenotipo;
 	private int volume;
 	private int importancia;
@@ -60,14 +60,16 @@ public class Cromossomo {
 	public static Cromossomo crossingOver(Cromossomo c1, Cromossomo c2){
 		int aux1 = c2.getGenotipo()[0];
 		int aux2 = c2.getGenotipo()[1];
-		int []gen = new int[5];
+		int aux3 = c2.getGenotipo()[6];
+		int []gen = c1.getGenotipo();
 		
-		for(int i = 0 ; i < 5 ; i++) {
-			gen[0] = aux1;
-			gen[1] = aux2;
-		}
+		gen[0] = aux1;
+		gen[1] = aux2;
+		gen[6] = aux3;
+		c1.setGenotipo(gen);
+
 		
-		return null;
+		return c1;
 	}
 	
 	// Retorna o índice dos dois elementos de maior importancia

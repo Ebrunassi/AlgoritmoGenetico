@@ -14,10 +14,40 @@ import java.util.List;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
+
 public class Main {
+	
+	public static int[] geraCromossomoAleatorio(LinkedList<Cromossomo> populacao, int volumeMochila) {
+		int []cromossomo = new int[populacao.size()];
+		Random random = new Random();
+		int volumeAtual = 0;
+		
+		// Preenche o cromossomo
+		for(int i = 0 ; i < cromossomo.length ; i++) {
+			cromossomo[i] = random.nextInt(2);
+			if(cromossomo[i] == 1)
+				volumeAtual = populacao.get(i).getVolume() + volumeAtual;
+			
+			if(volumeAtual > volumeMochila) {
+				for(int j = i ; j < cromossomo.length ; j++)
+					cromossomo[j] = 0;
+				break;
+			}
+			
+			System.out.println(cromossomo[i]);
+		}
+		System.out.println("Volume mochila : " + volumeMochila);
+		System.out.println("Volume atual : " + volumeAtual);
+		return null;
+	}
+	
+	
+	
+	
+	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
-		int volume = 0;
+		int volumeMochila = 0;
 		Random random = new Random();
 		Reader reader = Files.newBufferedReader(Paths.get("/home/evandro/Downloads/item_50.csv"),
 				StandardCharsets.UTF_8);
@@ -28,8 +58,8 @@ public class Main {
 //		for (Objeto pessoa : objetos)
 //            System.out.println(pessoa);
 
-		volume = Integer.parseInt(objetos.get(0).getVolume());
-		System.out.println(volume);
+		volumeMochila = Integer.parseInt(objetos.get(0).getVolume());
+//		System.out.println(volumeMochila);
 
 		LinkedList<Cromossomo> populacao = new LinkedList<Cromossomo>();
 
@@ -40,17 +70,12 @@ public class Main {
 			c.setImportancia(Integer.parseInt(objetos.get(i).getImportancia()));
 			c.setGenotipo(Cromossomo.convertBinary(c.getImportancia()));
 			populacao.add(c);
+//			System.out.println(i+". " +c.getVolume() + " - " + c.getImportancia());
 		}
-		int[] indices = Cromossomo.fitness(populacao);
-
-		LinkedList<Cromossomo> novaGeracao = new LinkedList<Cromossomo>();
 		
-		novaGeracao.add(populacao.get(indices[0]));
-		novaGeracao.add(populacao.get(indices[1]));
-
-		indices = Cromossomo.fitness(novaGeracao);		
-		Cromossomo.crossingOver(novaGeracao.get(indices[1]), novaGeracao.get(indices[2]));
 		
+		int []cPai = geraCromossomoAleatorio(populacao,volumeMochila);
+		int []cMae = geraCromossomoAleatorio(populacao,volumeMochila);
 		
 		
 		
